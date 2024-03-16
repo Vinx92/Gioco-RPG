@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <main id="main" class="hide">
+        <div class="statistiche-personaggio mar bor"></div>
+        <div class="schermo-di-gioco mar bor"></div>
+    </main>
+    <div id="main-start" class="main-start">
+        <form id="modulo">
+            <label for="nome">Scegli il Nome del tuo personaggio</label>
+            <input type="text" name="nome" id="nome" required maxlength="10" minlength="3">
+            <label for="i-avatar">Scegli l'immagine del tuo avatar</label>
+            <input type="file" name="i-avatar" id="i-avatar">
+            <h4 id="h4"></h4>
+            <label for="cost" title="Lacostituzione serve per incrementare la vita">Costituzione</label>
+            <div class="box-cost">
+                <input id="meno-cost" type="button" value="-">
+                <input type="text" name="" id="cost" disabled value="5">
+                <input id="piu-cost" type="button" value="+">
+            </div>
+            <label for="forz" title="Aumenta il tuo danno">Forza</label>
+            <div class="box-forz">
+                <input id="meno-forz" type="button" value="-">
+                <input type="text" name="" id="forz" disabled value="5">
+                <input id="piu-forz" type="button" value="+">
+            </div>
+            <input id="submit" type="submit" value="INIZIAMO">
+        </form>
+    </div>
+</body>
+<link rel="stylesheet" href="style/style.css">
+<script src="js/script.js"></script>
+
+</html>

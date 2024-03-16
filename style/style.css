@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: rgb(250, 161, 110);
+}
+
+main {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.statistiche-personaggio {
+  background-color: rgb(92, 92, 92);
+}
+
+.schermo-di-gioco {
+  background-color: rgb(92, 92, 92);;
+}
+
+.mar {
+  margin: 10px;
+}
+
+.bor {
+  border: 3px solid black;
+}
+
+.main-start {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #dbdbdb;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type='text'] {
+    text-align: center;
+}
+
+.hide {
+  display: none;
+}
