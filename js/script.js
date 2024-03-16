@@ -32,6 +32,8 @@ console.log(SUBMIT);
 
 const PERSONAGGIO = {
     livello: 1,
+exp: 0,
+expTot: 100,
 };
 console.log(PERSONAGGIO);
 
