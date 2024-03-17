@@ -59,8 +59,13 @@ const PERSONAGGIO = {
     return this.caBase + this.caArmatura + this.caScudo;
   },
   modificatoreCaratteristicheCostituzione: function () {
-    for (let i = 1; i < this.costituzione; i += 3) {
-      this.modCC += 1;
+    for (let i = 0; i < this.costituzione; i += 3) {
+      if (i == 0) {
+      } else {
+        this.modCC += 1;
+        console.log(i);
+        console.log(this.modCC);
+      }
     }
     return this.modCC;
   },
