@@ -66,7 +66,7 @@ const SUBMIT = document.getElementById("submit");
 
 const PERSONAGGIO = {
   livello: 1,
-  exp: 0,
+  exp: 100,
   expTot: 100,
   vitaBase: 10,
   costituzione: 0,
@@ -310,6 +310,14 @@ PIU_FORZ_STAT_PART.addEventListener("click", () => {
   }
 });
 
+if(PERSONAGGIO.exp === PERSONAGGIO.expTot){
+  PERSONAGGIO.passaggioDiLivello = true
+  PERSONAGGIO.livello += 1
+  PERSONAGGIO.exp = 0
+  PERSONAGGIO.expTot = 150
+  EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`
+}
+
 if (PERSONAGGIO.passaggioDiLivello === true) {
   MENO_COST_STAT_PART.removeAttribute("disabled");
   PIU_COST_STAT_PART.removeAttribute("disabled");
@@ -326,6 +334,10 @@ CONFERMA_LVL.addEventListener("click", () => {
     PERSONAGGIO.modCF = 0;
     PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
     PERSONAGGIO.modCF = PERSONAGGIO.modificatoreCaratteristicheForza();
+    MENO_COST_STAT_PART.setAttribute('disabled', 'disabled');
+    PIU_COST_STAT_PART.setAttribute('disabled', 'disabled');
+    MENO_FORZ_STAT_PART.setAttribute('disabled', 'disabled');
+    PIU_FORZ_STAT_PART.setAttribute('disabled', 'disabled');
     CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
     VITA.textContent = `VITA: ${PERSONAGGIO.vita()}`;
     CONFERMA_LVL.classList.add("hide");
