@@ -12,6 +12,8 @@ const BOX_AVATAR = document.getElementById("box-avatar");
 
 const VITA = document.getElementById("vita");
 
+const DANNO = document.getElementById("danno");
+
 const SOLDI = document.getElementById("soldi");
 
 const EXP = document.getElementById("exp");
@@ -58,42 +60,72 @@ const NOME_SCUDO = document.getElementById("nome-scudo");
 
 const DIFESA_SCUDO = document.getElementById("difesa-scudo");
 
+const BOX_VENDOR = document.getElementById("box-vendor");
+
+const SPADA_INIZIALE = document.getElementById("spada-iniziale");
+
+const ARMATURA_INIZIALE = document.getElementById("armatura-iniziale");
+
+const SCUDO_INIZIALE = document.getElementById("scudo-iniziale");
+
 const COST = document.getElementById("cost");
 
 const FORZ = document.getElementById("forz");
 
 const SUBMIT = document.getElementById("submit");
 
+const EQUIP_BASE = {
+  spada: {
+    nome: "Spada Arrugginita",
+    danno: 3,
+    costo: 25,
+  },
+  armatura: {
+    nome: "Armatura d'allenamento",
+    difesa: 2,
+    costo: 50,
+  },
+  scudo: {
+    nome: "Scudo d'allenamento",
+    difesa: 1,
+    costo: 25,
+  },
+};
+
 const PERSONAGGIO = {
   livello: 1,
-  exp: 100,
+  exp: 0,
   expTot: 100,
   vitaBase: 10,
   costituzione: 0,
   forza: 0,
-  caArmatura: 0,
-  caScudo: 0,
   modCC: 0,
   modCF: 0,
   passaggioDiLivello: false,
   soldi: 100,
   armaIndossata: {
+    ce: false,
     nomeArma: undefined,
-    dannoArma: undefined,
+    dannoArma: 0,
   },
   armaturaIndossata: {
+    ce: false,
     nomeArmatura: undefined,
-    difesaArmatura: undefined,
+    difesaArmatura: 0,
   },
   scudoIndossato: {
+    ce: false,
     nomeScudo: undefined,
-    difesaScudo: undefined,
+    difesaScudo: 0,
+  },
+  danno: function () {
+    return this.armaIndossata.dannoArma + this.modCF;
   },
   vita: function () {
     return this.vitaBase + this.modCC + this.livello;
   },
   ca: function () {
-    return this.modCF + this.caArmatura + this.caScudo;
+    return this.modCF + this.armaturaIndossata.difesaArmatura + this.scudoIndossato.difesaScudo;
   },
   modificatoreCaratteristicheCostituzione: function () {
     for (let i = 0; i < this.costituzione; i += 3) {
@@ -154,13 +186,14 @@ SUBMIT.addEventListener("click", () => {
       // Output dell'oggetto PERSONAGGIO senza immagine
       console.log(PERSONAGGIO);
     }
-    EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
-    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
     PERSONAGGIO.nome = NOME.value;
     PERSONAGGIO.costituzione = parseInt(COST.value);
     PERSONAGGIO.forza = parseInt(FORZ.value);
     PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
     PERSONAGGIO.modCF = PERSONAGGIO.modificatoreCaratteristicheForza();
+    EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
+    DANNO.textContent = `DANNO: ${PERSONAGGIO.danno()}`
     MAIN_START.classList.toggle("hide");
     MAIN.classList.remove("hide");
     NOME_LIVELLO.textContent = `${PERSONAGGIO.nome} LVL: ${PERSONAGGIO.livello}`;
@@ -310,12 +343,12 @@ PIU_FORZ_STAT_PART.addEventListener("click", () => {
   }
 });
 
-if(PERSONAGGIO.exp === PERSONAGGIO.expTot){
-  PERSONAGGIO.passaggioDiLivello = true
-  PERSONAGGIO.livello += 1
-  PERSONAGGIO.exp = 0
-  PERSONAGGIO.expTot = 150
-  EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`
+if (PERSONAGGIO.exp === PERSONAGGIO.expTot) {
+  PERSONAGGIO.passaggioDiLivello = true;
+  PERSONAGGIO.livello += 1;
+  PERSONAGGIO.exp = 0;
+  PERSONAGGIO.expTot = 150;
+  EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
 }
 
 if (PERSONAGGIO.passaggioDiLivello === true) {
@@ -334,10 +367,10 @@ CONFERMA_LVL.addEventListener("click", () => {
     PERSONAGGIO.modCF = 0;
     PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
     PERSONAGGIO.modCF = PERSONAGGIO.modificatoreCaratteristicheForza();
-    MENO_COST_STAT_PART.setAttribute('disabled', 'disabled');
-    PIU_COST_STAT_PART.setAttribute('disabled', 'disabled');
-    MENO_FORZ_STAT_PART.setAttribute('disabled', 'disabled');
-    PIU_FORZ_STAT_PART.setAttribute('disabled', 'disabled');
+    MENO_COST_STAT_PART.setAttribute("disabled", "disabled");
+    PIU_COST_STAT_PART.setAttribute("disabled", "disabled");
+    MENO_FORZ_STAT_PART.setAttribute("disabled", "disabled");
+    PIU_FORZ_STAT_PART.setAttribute("disabled", "disabled");
     CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
     VITA.textContent = `VITA: ${PERSONAGGIO.vita()}`;
     CONFERMA_LVL.classList.add("hide");
@@ -348,4 +381,68 @@ CONFERMA_LVL.addEventListener("click", () => {
     ricordoForza = PERSONAGGIO.forza;
     console.log(ricordoCostituzione, ricordoForza);
   }
+});
+
+SPADA_INIZIALE.addEventListener("mouseover", () => {
+  SPADA_INIZIALE.setAttribute(
+    "title",
+    `Una spada arrugginita ma sempre meglio di nulla
+  ha un danno di: ${EQUIP_BASE.spada.danno}, costa: ${EQUIP_BASE.spada.costo} $`
+  );
+});
+
+ARMATURA_INIZIALE.addEventListener("mouseover", () => {
+  ARMATURA_INIZIALE.setAttribute(
+    "title",
+    `un'armatura d'allenamneto per ti protegge di: ${EQUIP_BASE.armatura.difesa}, costo: ${EQUIP_BASE.armatura.costo} $`
+  );
+});
+
+SCUDO_INIZIALE.addEventListener("mouseover", () => {
+  SCUDO_INIZIALE.setAttribute(
+    "title",
+    `uno scudo un pò logoro però di protegge di: ${EQUIP_BASE.scudo.difesa}, costo: ${EQUIP_BASE.scudo.costo} $`
+  );
+});
+
+SPADA_INIZIALE.addEventListener("click", () => {
+  if(PERSONAGGIO.armaIndossata.ce === true){
+  }else {
+  if (PERSONAGGIO.soldi >= EQUIP_BASE.spada.costo) {
+    PERSONAGGIO.armaIndossata.ce = true
+    PERSONAGGIO.soldi -= EQUIP_BASE.spada.costo
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`
+    PERSONAGGIO.armaIndossata.dannoArma = EQUIP_BASE.spada.danno
+    DANNO.textContent = `DANNO: ${PERSONAGGIO.danno()}`
+    NOME_ARMA.textContent = EQUIP_BASE.spada.nome
+    DANNO_ARMA.textContent = EQUIP_BASE.spada.danno
+  }}
+});
+
+ARMATURA_INIZIALE.addEventListener("click", () => {
+  if(PERSONAGGIO.armaturaIndossata.ce === true){
+  }else {
+  if (PERSONAGGIO.soldi >= EQUIP_BASE.armatura.costo) {
+    PERSONAGGIO.armaturaIndossata.ce = true
+    PERSONAGGIO.soldi -= EQUIP_BASE.armatura.costo
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`
+    PERSONAGGIO.armaturaIndossata.difesaArmatura = EQUIP_BASE.armatura.difesa
+    CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
+    NOME_ARMATURA.textContent = EQUIP_BASE.armatura.nome
+    DIFESA_ARMATURA.textContent = EQUIP_BASE.armatura.difesa
+  }}
+});
+
+SCUDO_INIZIALE.addEventListener("click", () => {
+  if(PERSONAGGIO.scudoIndossato.ce === true){
+  }else {
+  if (PERSONAGGIO.soldi >= EQUIP_BASE.scudo.costo) {
+    PERSONAGGIO.scudoIndossato.ce = true
+    PERSONAGGIO.soldi -= EQUIP_BASE.scudo.costo
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`
+    PERSONAGGIO.scudoIndossato.difesaScudo = EQUIP_BASE.scudo.difesa
+    CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
+    NOME_SCUDO.textContent = EQUIP_BASE.scudo.nome
+    DIFESA_SCUDO.textContent = EQUIP_BASE.scudo.difesa
+  }}
 });
