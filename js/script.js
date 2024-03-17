@@ -13,8 +13,22 @@ console.log(NOME);
 const IMG = document.getElementById("i-avatar");
 console.log(IMG);
 
-const H4 = document.getElementById("h4");
-console.log(H4);
+const BOX_AVATAR = document.getElementById("box-avatar");
+console.log(BOX_AVATAR);
+
+const VITA = document.getElementById("vita");
+console.log(VITA);
+
+const INFO_SCHERMATA_INIZIALE = document.getElementById(
+  "infoSchermataIniziale"
+);
+console.log(INFO_SCHERMATA_INIZIALE);
+
+const NOME_LIVELLO = document.getElementById("nomeLivello");
+console.log(NOME_LIVELLO);
+
+const CLASSE_ARMATURA = document.getElementById("classeArmatura");
+console.log(CLASSE_ARMATURA);
 
 const PIU_COST = document.getElementById("piu-cost");
 const MENO_COST = document.getElementById("meno-cost");
@@ -31,25 +45,51 @@ const SUBMIT = document.getElementById("submit");
 console.log(SUBMIT);
 
 const PERSONAGGIO = {
-    livello: 1,
+  vitaBase: 10,
+  vita: function () {
+    return this.vitaBase + this.modCC + this.livello;
+  },
+  costituzione: 0,
+  forza: 0,
+  caBase: 0,
+  caArmatura: 0,
+  caScudo: 0,
+  modCC: 0,
+  ca: function () {
+    return this.caBase + this.caArmatura + this.caScudo;
+  },
+  modificatoreCaratteristicheCostituzione: function () {
+    for (let i = 1; i < this.costituzione; i += 3) {
+      this.modCC += 1;
+    }
+    return this.modCC;
+  },
+  livello: 1,
 };
 console.log(PERSONAGGIO);
 
 let puntiIniziali = 10;
 console.log(puntiIniziali);
 
-SUBMIT.addEventListener('click', () => {
-PERSONAGGIO.nome = NOME.value
-if (IMG.files.length > 0) {
+SUBMIT.addEventListener("click", () => {
+  PERSONAGGIO.nome = NOME.value;
+  if (IMG.files.length > 0) {
     const file = IMG.files[0]; // Ottieni il primo file caricato
     const reader = new FileReader();
 
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       // Quando il file è stato letto con successo, memorizzane l'URL dati nell'oggetto PERSONAGGIO
       PERSONAGGIO.immagine = e.target.result;
-      
+
       // Output dell'oggetto PERSONAGGIO con l'immagine associata
       console.log(PERSONAGGIO);
+
+      // Aggiungi l'immagine al DOM
+      const IMMAGINE_PERSONAGGIO = document.createElement("img");
+      IMMAGINE_PERSONAGGIO.src = PERSONAGGIO.immagine;
+      IMMAGINE_PERSONAGGIO.alt = "avatar";
+      IMMAGINE_PERSONAGGIO.className = "img-avatar";
+      BOX_AVATAR.appendChild(IMMAGINE_PERSONAGGIO);
     };
 
     reader.readAsDataURL(file); // Leggi il file come URL dati
@@ -57,17 +97,22 @@ if (IMG.files.length > 0) {
     // Output dell'oggetto PERSONAGGIO senza immagine
     console.log(PERSONAGGIO);
   }
-  PERSONAGGIO.costituzione = COST.value
-  PERSONAGGIO.forza = FORZ.value
-  MAIN_START.classList.toggle('hide')
-  MAIN.classList.remove('hide')
-})
-
-MODULO.addEventListener("submit", (e) => {
-    e.preventDefault();
+  PERSONAGGIO.costituzione = parseInt(COST.value) ;
+  PERSONAGGIO.forza = parseInt(FORZ.value);
+  PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione()
+  MAIN_START.classList.toggle("hide");
+  MAIN.classList.remove("hide");
+  NOME_LIVELLO.textContent = `${PERSONAGGIO.nome} LVL: ${PERSONAGGIO.livello}`;
+  CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
+  VITA.textContent = `VITA: ${PERSONAGGIO.vita()}`;
+  console.log(PERSONAGGIO);
 });
 
-H4.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+MODULO.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
 
 MENO_COST.addEventListener("click", () => {
   if (COST.value == 5) {
@@ -78,7 +123,7 @@ MENO_COST.addEventListener("click", () => {
     } else {
       puntiIniziali += 1;
       console.log(puntiIniziali);
-      H4.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+      INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
       let numero = parseInt(COST.value);
       numero -= 1;
       COST.value = numero;
@@ -92,7 +137,7 @@ PIU_COST.addEventListener("click", () => {
   } else {
     puntiIniziali -= 1;
     console.log(puntiIniziali);
-    H4.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+    INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
     let numero = parseInt(COST.value);
     numero += 1;
     COST.value = numero;
@@ -108,7 +153,7 @@ MENO_FORZ.addEventListener("click", () => {
     } else {
       puntiIniziali += 1;
       console.log(puntiIniziali);
-      H4.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+      INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
       let numero = parseInt(FORZ.value);
       numero -= 1;
       FORZ.value = numero;
@@ -122,7 +167,7 @@ PIU_FORZ.addEventListener("click", () => {
   } else {
     puntiIniziali -= 1;
     console.log(puntiIniziali);
-    H4.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+    INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
     let numero = parseInt(FORZ.value);
     numero += 1;
     FORZ.value = numero;
