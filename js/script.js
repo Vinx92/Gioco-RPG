@@ -45,26 +45,7 @@ const SUBMIT = document.getElementById("submit");
 console.log(SUBMIT);
 
 const PERSONAGGIO = {
-  vitaBase: 10,
-  vita: function () {
-    return this.vitaBase + this.modCC + this.livello;
-  },
-  costituzione: 0,
-  forza: 0,
-  caBase: 0,
-  caArmatura: 0,
-  caScudo: 0,
-  modCC: 0,
-  ca: function () {
-    return this.caBase + this.caArmatura + this.caScudo;
-  },
-  modificatoreCaratteristicheCostituzione: function () {
-    for (let i = 1; i < this.costituzione; i += 3) {
-      this.modCC += 1;
-    }
-    return this.modCC;
-  },
-  livello: 1,
+    livello: 1,
 };
 console.log(PERSONAGGIO);
 
