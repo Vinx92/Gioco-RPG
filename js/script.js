@@ -68,6 +68,20 @@ const ARMATURA_INIZIALE = document.getElementById("armatura-iniziale");
 
 const SCUDO_INIZIALE = document.getElementById("scudo-iniziale");
 
+const COMBATTIAMO = document.getElementById("combattiamo");
+
+const BOX_COMBATTIMENTO = document.getElementById("box-combattimento");
+
+const IMMAGINE_MOSTRO = document.getElementById("immagine-mostro");
+
+const VITA_MOSTRO = document.getElementById("vita-mostro");
+
+const NOME_MOSTRO = document.getElementById("nome-mostro");
+
+const CA_MOSTRO = document.getElementById("ca-mostro");
+
+const ATTACCO_MOSTRO = document.getElementById("attacco-mostro");
+
 const COST = document.getElementById("cost");
 
 const FORZ = document.getElementById("forz");
@@ -93,6 +107,7 @@ const EQUIP_BASE = {
 };
 
 const PERSONAGGIO = {
+  iniziativa: false,
   livello: 1,
   exp: 0,
   expTot: 100,
@@ -163,6 +178,19 @@ let puntiOgniLivello = 5;
 let ricordoCostituzione;
 
 let ricordoForza;
+
+const MOSTRI = {
+  cthulhu: {
+    iniziativa: true,
+    nome: "cthulhu",
+    immagine: "assets/cthulhu.png",
+    vita: 20,
+    danno: 3,
+    ca: 5,
+    expOttenuta: 100,
+    oroOttenuto: 100000,
+  },
+};
 
 SUBMIT.addEventListener("click", () => {
   if (puntiIniziali === 0) {
@@ -453,4 +481,14 @@ SCUDO_INIZIALE.addEventListener("click", () => {
       DIFESA_SCUDO.textContent = EQUIP_BASE.scudo.difesa;
     }
   }
+});
+
+COMBATTIAMO.addEventListener("click", () => {
+  BOX_VENDOR.classList.add("hide");
+  BOX_COMBATTIMENTO.classList.remove("hide");
+  IMMAGINE_MOSTRO.src = MOSTRI.cthulhu.immagine;
+  VITA_MOSTRO.textContent = MOSTRI.cthulhu.vita;
+  NOME_MOSTRO.textContent = MOSTRI.cthulhu.nome;
+  CA_MOSTRO.textContent = MOSTRI.cthulhu.ca;
+  ATTACCO_MOSTRO.textContent = MOSTRI.cthulhu.danno;
 });
