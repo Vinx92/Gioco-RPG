@@ -45,7 +45,28 @@ const SUBMIT = document.getElementById("submit");
 console.log(SUBMIT);
 
 const PERSONAGGIO = {
-    livello: 1,
+  vitaBase: 10,
+  vita: function () {
+    return this.vitaBase + this.modCC + this.livello;
+  },
+  costituzione: 0,
+  forza: 0,
+  caBase: 0,
+  caArmatura: 0,
+  caScudo: 0,
+  modCC: 0,
+  ca: function () {
+    return this.caBase + this.caArmatura + this.caScudo;
+  },
+  modificatoreCaratteristicheCostituzione: function () {
+    for (let i = 1; i < this.costituzione; i += 3) {
+      this.modCC += 1;
+    }
+    return this.modCC;
+  },
+  livello: 1,
+  exp: 0,
+  expTot: 100,
 };
 console.log(PERSONAGGIO);
 
@@ -78,9 +99,9 @@ SUBMIT.addEventListener("click", () => {
     // Output dell'oggetto PERSONAGGIO senza immagine
     console.log(PERSONAGGIO);
   }
-  PERSONAGGIO.costituzione = parseInt(COST.value) ;
+  PERSONAGGIO.costituzione = parseInt(COST.value);
   PERSONAGGIO.forza = parseInt(FORZ.value);
-  PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione()
+  PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
   MAIN_START.classList.toggle("hide");
   MAIN.classList.remove("hide");
   NOME_LIVELLO.textContent = `${PERSONAGGIO.nome} LVL: ${PERSONAGGIO.livello}`;
