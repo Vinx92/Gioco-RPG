@@ -97,12 +97,12 @@ const EQUIP_BASE = {
   armatura: {
     nome: "Armatura d'allenamento",
     difesa: 2,
-    costo: 50,
+    costo: 60,
   },
   scudo: {
     nome: "Scudo d'allenamento",
     difesa: 1,
-    costo: 25,
+    costo: 20,
   },
 };
 
@@ -116,7 +116,7 @@ const PERSONAGGIO = {
   forza: 0,
   modCC: 0,
   modCF: 0,
-  passaggioDiLivello: false,
+  passaggioDiLivello: true,
   soldi: 100,
   armaIndossata: {
     ce: false,
@@ -250,17 +250,15 @@ INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due stat
 MENO_COST.addEventListener("click", () => {
   if (COST.value == 5) {
     return;
+  } else if (puntiIniziali === 10) {
+    return;
   } else {
-    if (puntiIniziali === 10) {
-      return;
-    } else {
-      puntiIniziali += 1;
-      console.log(puntiIniziali);
-      INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
-      let numero = parseInt(COST.value);
-      numero -= 1;
-      COST.value = numero;
-    }
+    puntiIniziali += 1;
+    console.log(puntiIniziali);
+    INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+    let numero = parseInt(COST.value);
+    numero -= 1;
+    COST.value = numero;
   }
 });
 
@@ -280,17 +278,15 @@ PIU_COST.addEventListener("click", () => {
 MENO_FORZ.addEventListener("click", () => {
   if (FORZ.value == 5) {
     return;
+  } else if (puntiIniziali === 10) {
+    return;
   } else {
-    if (puntiIniziali === 10) {
-      return;
-    } else {
-      puntiIniziali += 1;
-      console.log(puntiIniziali);
-      INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
-      let numero = parseInt(FORZ.value);
-      numero -= 1;
-      FORZ.value = numero;
-    }
+    puntiIniziali += 1;
+    console.log(puntiIniziali);
+    INFO_SCHERMATA_INIZIALE.textContent = `Metti ${puntiIniziali} su queste due statistiche`;
+    let numero = parseInt(FORZ.value);
+    numero -= 1;
+    FORZ.value = numero;
   }
 });
 
@@ -310,68 +306,56 @@ PIU_FORZ.addEventListener("click", () => {
 MENO_COST_STAT_PART.addEventListener("click", () => {
   if (PERSONAGGIO.passaggioDiLivello === false) {
     return;
+  } else if (COST_STAT_PART.value == ricordoCostituzione) {
+    return;
+  } else if (puntiOgniLivello === 5) {
+    return;
   } else {
-    if (COST_STAT_PART.value == ricordoCostituzione) {
-      return;
-    } else {
-      if (puntiOgniLivello === 5) {
-        return;
-      } else {
-        puntiOgniLivello += 1;
-        let numero = parseInt(COST_STAT_PART.value);
-        numero -= 1;
-        COST_STAT_PART.value = numero;
-      }
-    }
+    puntiOgniLivello += 1;
+    let numero = parseInt(COST_STAT_PART.value);
+    numero -= 1;
+    COST_STAT_PART.value = numero;
   }
 });
 
 PIU_COST_STAT_PART.addEventListener("click", () => {
   if (PERSONAGGIO.passaggioDiLivello === false) {
     return;
+  } else if (puntiOgniLivello === 0) {
+    return;
   } else {
-    if (puntiOgniLivello === 0) {
-      return;
-    } else {
-      puntiOgniLivello -= 1;
-      let numero = parseInt(COST_STAT_PART.value);
-      numero += 1;
-      COST_STAT_PART.value = numero;
-    }
+    puntiOgniLivello -= 1;
+    let numero = parseInt(COST_STAT_PART.value);
+    numero += 1;
+    COST_STAT_PART.value = numero;
   }
 });
 
 MENO_FORZ_STAT_PART.addEventListener("click", () => {
   if (PERSONAGGIO.passaggioDiLivello === false) {
     return;
+  } else if (FORZ_STAT_PART.value == ricordoForza) {
+    return;
+  } else if (puntiOgniLivello === 5) {
+    return;
   } else {
-    if (FORZ_STAT_PART.value == ricordoForza) {
-      return;
-    } else {
-      if (puntiOgniLivello === 5) {
-        return;
-      } else {
-        puntiOgniLivello += 1;
-        let numero = parseInt(FORZ_STAT_PART.value);
-        numero -= 1;
-        FORZ_STAT_PART.value = numero;
-      }
-    }
+    puntiOgniLivello += 1;
+    let numero = parseInt(FORZ_STAT_PART.value);
+    numero -= 1;
+    FORZ_STAT_PART.value = numero;
   }
 });
 
 PIU_FORZ_STAT_PART.addEventListener("click", () => {
   if (PERSONAGGIO.passaggioDiLivello === false) {
     return;
+  } else if (puntiOgniLivello === 0) {
+    return;
   } else {
-    if (puntiOgniLivello === 0) {
-      return;
-    } else {
-      puntiOgniLivello -= 1;
-      let numero = parseInt(FORZ_STAT_PART.value);
-      numero += 1;
-      FORZ_STAT_PART.value = numero;
-    }
+    puntiOgniLivello -= 1;
+    let numero = parseInt(FORZ_STAT_PART.value);
+    numero += 1;
+    FORZ_STAT_PART.value = numero;
   }
 });
 
@@ -440,46 +424,40 @@ SCUDO_INIZIALE.addEventListener("mouseover", () => {
 
 SPADA_INIZIALE.addEventListener("click", () => {
   if (PERSONAGGIO.armaIndossata.ce === true) {
-  } else {
-    if (PERSONAGGIO.soldi >= EQUIP_BASE.spada.costo) {
-      PERSONAGGIO.armaIndossata.ce = true;
-      PERSONAGGIO.soldi -= EQUIP_BASE.spada.costo;
-      SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
-      PERSONAGGIO.armaIndossata.dannoArma = EQUIP_BASE.spada.danno;
-      DANNO.textContent = `DANNO: ${PERSONAGGIO.danno()}`;
-      NOME_ARMA.textContent = EQUIP_BASE.spada.nome;
-      DANNO_ARMA.textContent = EQUIP_BASE.spada.danno;
-    }
+  } else if (PERSONAGGIO.soldi >= EQUIP_BASE.spada.costo) {
+    PERSONAGGIO.armaIndossata.ce = true;
+    PERSONAGGIO.soldi -= EQUIP_BASE.spada.costo;
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
+    PERSONAGGIO.armaIndossata.dannoArma = EQUIP_BASE.spada.danno;
+    DANNO.textContent = `DANNO: ${PERSONAGGIO.danno()}`;
+    NOME_ARMA.textContent = EQUIP_BASE.spada.nome;
+    DANNO_ARMA.textContent = EQUIP_BASE.spada.danno;
   }
 });
 
 ARMATURA_INIZIALE.addEventListener("click", () => {
   if (PERSONAGGIO.armaturaIndossata.ce === true) {
-  } else {
-    if (PERSONAGGIO.soldi >= EQUIP_BASE.armatura.costo) {
-      PERSONAGGIO.armaturaIndossata.ce = true;
-      PERSONAGGIO.soldi -= EQUIP_BASE.armatura.costo;
-      SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
-      PERSONAGGIO.armaturaIndossata.difesaArmatura = EQUIP_BASE.armatura.difesa;
-      CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
-      NOME_ARMATURA.textContent = EQUIP_BASE.armatura.nome;
-      DIFESA_ARMATURA.textContent = EQUIP_BASE.armatura.difesa;
-    }
+  } else if (PERSONAGGIO.soldi >= EQUIP_BASE.armatura.costo) {
+    PERSONAGGIO.armaturaIndossata.ce = true;
+    PERSONAGGIO.soldi -= EQUIP_BASE.armatura.costo;
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
+    PERSONAGGIO.armaturaIndossata.difesaArmatura = EQUIP_BASE.armatura.difesa;
+    CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
+    NOME_ARMATURA.textContent = EQUIP_BASE.armatura.nome;
+    DIFESA_ARMATURA.textContent = EQUIP_BASE.armatura.difesa;
   }
 });
 
 SCUDO_INIZIALE.addEventListener("click", () => {
   if (PERSONAGGIO.scudoIndossato.ce === true) {
-  } else {
-    if (PERSONAGGIO.soldi >= EQUIP_BASE.scudo.costo) {
-      PERSONAGGIO.scudoIndossato.ce = true;
-      PERSONAGGIO.soldi -= EQUIP_BASE.scudo.costo;
-      SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
-      PERSONAGGIO.scudoIndossato.difesaScudo = EQUIP_BASE.scudo.difesa;
-      CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
-      NOME_SCUDO.textContent = EQUIP_BASE.scudo.nome;
-      DIFESA_SCUDO.textContent = EQUIP_BASE.scudo.difesa;
-    }
+  } else if (PERSONAGGIO.soldi >= EQUIP_BASE.scudo.costo) {
+    PERSONAGGIO.scudoIndossato.ce = true;
+    PERSONAGGIO.soldi -= EQUIP_BASE.scudo.costo;
+    SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
+    PERSONAGGIO.scudoIndossato.difesaScudo = EQUIP_BASE.scudo.difesa;
+    CLASSE_ARMATURA.textContent = `CA: ${PERSONAGGIO.ca()}`;
+    NOME_SCUDO.textContent = EQUIP_BASE.scudo.nome;
+    DIFESA_SCUDO.textContent = EQUIP_BASE.scudo.difesa;
   }
 });
 
