@@ -110,7 +110,11 @@ const TIRA_CA_PER_IL_GIOCATORE = document.getElementById(
 
 const BOX_WIN_LOSE = document.getElementById("box-win-lose");
 
+const MESSAGGIO_WIN_LOSE = document.getElementById("messaggio-win-lose");
 
+const RICOMPENSE = document.getElementById("ricompense");
+
+const OK_RICOMPENSA = document.getElementById("ok-ricompensa");
 
 const EQUIP_BASE = {
   spada: {
@@ -136,6 +140,7 @@ const PERSONAGGIO = {
   exp: 0,
   expTot: 100,
   vitaBase: 10,
+  vitaV: 0,
   costituzione: 0,
   forza: 0,
   modCC: 0,
@@ -247,6 +252,7 @@ SUBMIT.addEventListener("click", () => {
     PERSONAGGIO.forza = parseInt(FORZ.value);
     PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
     PERSONAGGIO.modCF = PERSONAGGIO.modificatoreCaratteristicheForza();
+    PERSONAGGIO.vitaV = PERSONAGGIO.vita();
     EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
     SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
     DANNO.textContent = `DANNO: ${PERSONAGGIO.danno()}`;
@@ -383,22 +389,6 @@ PIU_FORZ_STAT_PART.addEventListener("click", () => {
   }
 });
 
-if (PERSONAGGIO.exp >= PERSONAGGIO.expTot) {
-  PERSONAGGIO.passaggioDiLivello = true;
-  PERSONAGGIO.livello += 1;
-  PERSONAGGIO.exp = 0;
-  PERSONAGGIO.expTot += 50;
-  EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
-}
-
-if (PERSONAGGIO.passaggioDiLivello === true) {
-  MENO_COST_STAT_PART.removeAttribute("disabled");
-  PIU_COST_STAT_PART.removeAttribute("disabled");
-  MENO_FORZ_STAT_PART.removeAttribute("disabled");
-  PIU_FORZ_STAT_PART.removeAttribute("disabled");
-  CONFERMA_LVL.classList.remove("hide");
-}
-
 CONFERMA_LVL.addEventListener("click", () => {
   if (puntiOgniLivello === 0) {
     PERSONAGGIO.costituzione = parseInt(COST_STAT_PART.value);
@@ -407,6 +397,8 @@ CONFERMA_LVL.addEventListener("click", () => {
     PERSONAGGIO.modCF = 0;
     PERSONAGGIO.modCC = PERSONAGGIO.modificatoreCaratteristicheCostituzione();
     PERSONAGGIO.modCF = PERSONAGGIO.modificatoreCaratteristicheForza();
+    PERSONAGGIO.vitaV = 0;
+    PERSONAGGIO.vitaV = PERSONAGGIO.vita();
     MENO_COST_STAT_PART.setAttribute("disabled", "disabled");
     PIU_COST_STAT_PART.setAttribute("disabled", "disabled");
     MENO_FORZ_STAT_PART.setAttribute("disabled", "disabled");
@@ -506,11 +498,53 @@ TIRA_CA_PER_IL_MOSTRO.addEventListener("click", () => {
       MESSAGGIO_DOPO_IL_TIRO_PERSONAGGIO.textContent = `Hai superato la CA del mostro
       infliggi ${PERSONAGGIO.danno()}`;
       VITA_MOSTRO.textContent -= PERSONAGGIO.danno();
-      if (MOSTRI.cthulhu.vita === 0) {
-        BOX_COMBATTIMENTO.classList.remove('hide')
+      if (MOSTRI.cthulhu.vita <= 0) {
+        BOX_WIN_LOSE.classList.remove("hide");
+        BOX_COMBATTIMENTO.classList.add("hide");
+        MESSAGGIO_WIN_LOSE.textContent = `${PERSONAGGIO.nome} Hai vinto contro ${MOSTRI.cthulhu.nome}`;
+        RICOMPENSE.textContent = `Hai ricevuto ${MOSTRI.cthulhu.expOttenuta} EXP e ${MOSTRI.cthulhu.oroOttenuto} $`;
+        PERSONAGGIO.exp += MOSTRI.cthulhu.expOttenuta;
+        PERSONAGGIO.soldi += MOSTRI.cthulhu.oroOttenuto;
+        EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
+        SOLDI.textContent = `SOLDI: ${PERSONAGGIO.soldi} $`;
+        if (PERSONAGGIO.exp >= PERSONAGGIO.expTot) {
+          MENO_COST_STAT_PART.removeAttribute("disabled");
+          PIU_COST_STAT_PART.removeAttribute("disabled");
+          MENO_FORZ_STAT_PART.removeAttribute("disabled");
+          PIU_FORZ_STAT_PART.removeAttribute("disabled");
+          CONFERMA_LVL.classList.remove("hide");
+          PERSONAGGIO.passaggioDiLivello = true;
+          PERSONAGGIO.livello += 1;
+          PERSONAGGIO.exp = 0;
+          PERSONAGGIO.expTot += 50;
+          NOME_LIVELLO.textContent = `${PERSONAGGIO.nome} LVL: ${PERSONAGGIO.livello}`;
+          EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
+        }
       }
     } else {
       MESSAGGIO_DOPO_IL_TIRO_PERSONAGGIO.textContent = `Non hai superato la CA del mostro`;
+    }
+  }
+});
+
+TIRA_CA_PER_IL_GIOCATORE.addEventListener("click", () => {
+  if (MOSTRI.cthulhu.iniziativa == false) {
+    let numeroTiro = D20();
+    PERSONAGGIO.iniziativa = false;
+    MOSTRI.cthulhu.iniziativa = true;
+    NUMERO_TIRO_CA_GIOCATORE.textContent = numeroTiro;
+    if (numeroTiro > PERSONAGGIO.ca()) {
+      PERSONAGGIO.vitaV -= MOSTRI.cthulhu.danno;
+      VITA.textContent = `VITA: ${PERSONAGGIO.vitaV}`;
+      MESSAGGIO_DOPO_IL_TIRO_MOSTRO.textContent = `Il mostro ha superato la tua CA e ti infligge ${MOSTRI.cthulhu.danno}`;
+      if (PERSONAGGIO.vitaV <= 0) {
+        VITA.textContent = 'VITA: 0'
+        BOX_COMBATTIMENTO.classList.add("hide");
+        BOX_WIN_LOSE.classList.remove("hide");
+        MESSAGGIO_WIN_LOSE.textContent = "HAI PERSO!!!";
+      }
+    } else {
+      MESSAGGIO_DOPO_IL_TIRO_MOSTRO.textContent = `Sei stato fortunato il mostro ti ha mancato`;
     }
   }
 });
