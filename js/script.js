@@ -8,6 +8,12 @@ const NOME = document.getElementById("nome");
 
 const IMG = document.getElementById("i-avatar");
 
+const COST = document.getElementById("cost");
+
+const FORZ = document.getElementById("forz");
+
+const SUBMIT = document.getElementById("submit");
+
 const BOX_AVATAR = document.getElementById("box-avatar");
 
 const VITA = document.getElementById("vita");
@@ -82,11 +88,29 @@ const CA_MOSTRO = document.getElementById("ca-mostro");
 
 const ATTACCO_MOSTRO = document.getElementById("attacco-mostro");
 
-const COST = document.getElementById("cost");
+const NUMERO_TIRO_CA_MOSTRO = document.getElementById("numero-tiro-ca-mostro");
 
-const FORZ = document.getElementById("forz");
+const MESSAGGIO_DOPO_IL_TIRO_PERSONAGGIO = document.getElementById(
+  "messaggio-dopo-il-tiro-personaggio"
+);
 
-const SUBMIT = document.getElementById("submit");
+const TIRA_CA_PER_IL_MOSTRO = document.getElementById("tira-ca-per-il-mostro");
+
+const NUMERO_TIRO_CA_GIOCATORE = document.getElementById(
+  "numero-tiro-ca-giocatore"
+);
+
+const MESSAGGIO_DOPO_IL_TIRO_MOSTRO = document.getElementById(
+  "messaggio-dopo-il-tiro-mostro"
+);
+
+const TIRA_CA_PER_IL_GIOCATORE = document.getElementById(
+  "tira-ca-per-il-giocatore"
+);
+
+const BOX_WIN_LOSE = document.getElementById("box-win-lose");
+
+
 
 const EQUIP_BASE = {
   spada: {
@@ -470,3 +494,27 @@ COMBATTIAMO.addEventListener("click", () => {
   CA_MOSTRO.textContent = MOSTRI.cthulhu.ca;
   ATTACCO_MOSTRO.textContent = MOSTRI.cthulhu.danno;
 });
+
+TIRA_CA_PER_IL_MOSTRO.addEventListener("click", () => {
+  if (PERSONAGGIO.iniziativa == false) {
+    let numeroTiro = D20();
+    PERSONAGGIO.iniziativa = true;
+    MOSTRI.cthulhu.iniziativa = false;
+    NUMERO_TIRO_CA_MOSTRO.textContent = numeroTiro;
+    if (numeroTiro > MOSTRI.cthulhu.ca) {
+      MOSTRI.cthulhu.vita -= PERSONAGGIO.danno();
+      MESSAGGIO_DOPO_IL_TIRO_PERSONAGGIO.textContent = `Hai superato la CA del mostro
+      infliggi ${PERSONAGGIO.danno()}`;
+      VITA_MOSTRO.textContent -= PERSONAGGIO.danno();
+      if (MOSTRI.cthulhu.vita === 0) {
+        BOX_COMBATTIMENTO.classList.remove('hide')
+      }
+    } else {
+      MESSAGGIO_DOPO_IL_TIRO_PERSONAGGIO.textContent = `Non hai superato la CA del mostro`;
+    }
+  }
+});
+
+function D20() {
+  return Math.floor(Math.random() * (20 - 1) + 1);
+}

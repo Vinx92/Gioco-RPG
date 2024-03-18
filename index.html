@@ -1,126 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <main id="main" class="hide">
-        <div class="statistiche-personaggio mar bor">
-            <h3 id="nomeLivello"></h3>
-            <h4 id="classeArmatura"></h4>
-            <div id="box-avatar" class="box-avatar"></div>
-            <h3 id="vita"></h3>
-            <h3 id="danno"></h3>
-            <h3 id="soldi"></h3>
-            <h3 id="exp"></h3>
-            <label for="cost" title="Lacostituzione serve per incrementare la vita">Costituzione</label>
-            <div class="box-cost">
-                <input id="meno-cost-stat-part" type="button" value="-" disabled>
-                <input type="text" name="" id="cost-stat-part" disabled value="0">
-                <input id="piu-cost-stat-part" type="button" value="+" disabled>
-            </div>
-            <label for="forz" title="Aumenta il tuo danno">Forza</label>
-            <div class="box-forz">
-                <input id="meno-forz-stat-part" type="button" value="-" disabled>
-                <input type="text" name="" id="forz-stat-part" disabled value="0">
-                <input id="piu-forz-stat-part" type="button" value="+" disabled>
-            </div>
-            <input id="conferma-lvl" class="hide" type="button" value="CONFERMA">
-            <table>
-                <tr>
-                    <th>Nome Arma</th>
-                    <th>Danno Arma</th>
-                </tr>
-                <tr>
-                    <td id="nome-arma"></td>
-                    <td id="danno-arma"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>Nome Armatura</th>
-                    <th>Difesa Armatura</th>
-                </tr>
-                <tr>
-                    <td id="nome-armatura"></td>
-                    <td id="difesa-armatura"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>Nome Scudo</th>
-                    <th>Difesa Scudo</th>
-                </tr>
-                <tr>
-                    <td id="nome-scudo"></td>
-                    <td id="difesa-scudo"></td>
-                </tr>
-            </table>
+      <div class="statistiche-personaggio mar bor">
+        <h3 id="nomeLivello"></h3>
+        <h4 id="classeArmatura"></h4>
+        <div id="box-avatar" class="box-avatar"></div>
+        <h3 id="vita"></h3>
+        <h3 id="danno"></h3>
+        <h3 id="soldi"></h3>
+        <h3 id="exp"></h3>
+        <label for="cost" title="Lacostituzione serve per incrementare la vita"
+          >Costituzione</label
+        >
+        <div class="box-cost">
+          <input id="meno-cost-stat-part" type="button" value="-" disabled />
+          <input type="text" name="" id="cost-stat-part" disabled value="0" />
+          <input id="piu-cost-stat-part" type="button" value="+" disabled />
         </div>
-        <div class="schermo-di-gioco mar bor">
-            <div id="box-vendor">
-                <h2>SHOP</h2>
-                <img id="spada-iniziale" src="assets/sword.png" alt="icona spada">
-                <img id="armatura-iniziale" src="assets/armor.png" alt="icona armatura">
-                <img id="scudo-iniziale" src="assets/shield.png" alt="icona scudo">
-                <h4>Compra ciò che riesci e poi vai a combattere!!</h4>
-                <input id="combattiamo" type="button" value="COMBATTIAMO">
-            </div>
-            <div id="box-combattimento" class="hide">
-                <div>
-                    <img id="immagine-mostro" src="" alt="">
-                </div>
-                <table>
-                    <tr>
-                        <th>Vita</th>
-                        <th>Nome Mostro</th>
-                        <th>CA</th>
-                        <th>Attacco</th>
-                    </tr>
-                    <tr>
-                        <td id="vita-mostro"></td>
-                        <td id="nome-mostro"></td>
-                        <td id="ca-mostro"></td>
-                        <td id="attacco-mostro"></td>
-                    </tr>
-                </table>
-                <h3>Tiro per la CA del mostro</h3>
-                <h3 id="numero-tiro-ca-mostro"></h3>
-                <input id="tira-ca-per-il-mostro" type="button" value="TIRA">
-                <h3>Tiro per la CA del giocatore</h3>
-                <h3 id="numero-tiro-ca-giocatore"></h3>
-                <input id="tira-ca-per-il-giocatore" type="button" value="TIRA">
-            </div>
+        <label for="forz" title="Aumenta il tuo danno">Forza</label>
+        <div class="box-forz">
+          <input id="meno-forz-stat-part" type="button" value="-" disabled />
+          <input type="text" name="" id="forz-stat-part" disabled value="0" />
+          <input id="piu-forz-stat-part" type="button" value="+" disabled />
         </div>
+        <input id="conferma-lvl" class="hide" type="button" value="CONFERMA" />
+        <table>
+          <tr>
+            <th>Nome Arma</th>
+            <th>Danno Arma</th>
+          </tr>
+          <tr>
+            <td id="nome-arma"></td>
+            <td id="danno-arma"></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th>Nome Armatura</th>
+            <th>Difesa Armatura</th>
+          </tr>
+          <tr>
+            <td id="nome-armatura"></td>
+            <td id="difesa-armatura"></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th>Nome Scudo</th>
+            <th>Difesa Scudo</th>
+          </tr>
+          <tr>
+            <td id="nome-scudo"></td>
+            <td id="difesa-scudo"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="schermo-di-gioco mar bor">
+        <div id="box-vendor">
+          <h2>SHOP</h2>
+          <img id="spada-iniziale" src="assets/sword.png" alt="icona spada" />
+          <img
+            id="armatura-iniziale"
+            src="assets/armor.png"
+            alt="icona armatura"
+          />
+          <img id="scudo-iniziale" src="assets/shield.png" alt="icona scudo" />
+          <h4>Compra ciò che riesci e poi vai a combattere!!</h4>
+          <input id="combattiamo" type="button" value="COMBATTIAMO" />
+        </div>
+        <div id="box-combattimento" class="hide">
+          <div>
+            <img id="immagine-mostro" src="" alt="" />
+          </div>
+          <table>
+            <tr>
+              <th>Vita</th>
+              <th>Nome Mostro</th>
+              <th>CA</th>
+              <th>Attacco</th>
+            </tr>
+            <tr>
+              <td id="vita-mostro"></td>
+              <td id="nome-mostro"></td>
+              <td id="ca-mostro"></td>
+              <td id="attacco-mostro"></td>
+            </tr>
+          </table>
+          <h3>Tiro per la CA del mostro</h3>
+          <h3 id="numero-tiro-ca-mostro"></h3>
+          <h4 id="messaggio-dopo-il-tiro-personaggio"></h4>
+          <input id="tira-ca-per-il-mostro" type="button" value="TIRA" />
+          <h3>Tiro per la CA del giocatore</h3>
+          <h3 id="numero-tiro-ca-giocatore"></h3>
+          <h4 id="messaggio-dopo-il-tiro-mostro"></h4>
+          <input id="tira-ca-per-il-giocatore" type="button" value="TIRA" />
+        </div>
+        <div id="box-win-lose" class="hide">
+            <h3 id="messaggio-win-lose"></h3>
+            <h3 id="ricompense"></h3>
+        </div>
+      </div>
     </main>
     <div id="main-start" class="main-start">
-        <form id="modulo">
-            <label for="nome">Scegli il Nome del tuo personaggio</label>
-            <input type="text" name="nome" id="nome" required maxlength="10" minlength="3">
-            <label for="i-avatar">Scegli l'immagine del tuo avatar</label>
-            <input type="file" name="i-avatar" id="i-avatar">
-            <h4 id="infoSchermataIniziale"></h4>
-            <label for="cost" title="Lacostituzione serve per incrementare la vita">Costituzione</label>
-            <div class="box-cost">
-                <input id="meno-cost" type="button" value="-">
-                <input type="text" name="" id="cost" disabled value="5">
-                <input id="piu-cost" type="button" value="+">
-            </div>
-            <label for="forz" title="Aumenta il tuo danno">Forza</label>
-            <div class="box-forz">
-                <input id="meno-forz" type="button" value="-">
-                <input type="text" name="" id="forz" disabled value="5">
-                <input id="piu-forz" type="button" value="+">
-            </div>
-            <input id="submit" type="submit" value="INIZIAMO">
-        </form>
+      <form id="modulo">
+        <label for="nome">Scegli il Nome del tuo personaggio</label>
+        <input
+          type="text"
+          name="nome"
+          id="nome"
+          required
+          maxlength="10"
+          minlength="3"
+        />
+        <label for="i-avatar">Scegli l'immagine del tuo avatar</label>
+        <input type="file" name="i-avatar" id="i-avatar" />
+        <h4 id="infoSchermataIniziale"></h4>
+        <label for="cost" title="Lacostituzione serve per incrementare la vita"
+          >Costituzione</label
+        >
+        <div class="box-cost">
+          <input id="meno-cost" type="button" value="-" />
+          <input type="text" name="" id="cost" disabled value="5" />
+          <input id="piu-cost" type="button" value="+" />
+        </div>
+        <label for="forz" title="Aumenta il tuo danno">Forza</label>
+        <div class="box-forz">
+          <input id="meno-forz" type="button" value="-" />
+          <input type="text" name="" id="forz" disabled value="5" />
+          <input id="piu-forz" type="button" value="+" />
+        </div>
+        <input id="submit" type="submit" value="INIZIAMO" />
+      </form>
     </div>
-</body>
-<link rel="stylesheet" href="style/style.css">
-<script src="js/script.js"></script>
-
+  </body>
+  <link rel="stylesheet" href="style/style.css" />
+  <script src="js/script.js"></script>
 </html>
