@@ -116,7 +116,7 @@ const PERSONAGGIO = {
   forza: 0,
   modCC: 0,
   modCF: 0,
-  passaggioDiLivello: true,
+  passaggioDiLivello: false,
   soldi: 100,
   armaIndossata: {
     ce: false,
@@ -359,11 +359,11 @@ PIU_FORZ_STAT_PART.addEventListener("click", () => {
   }
 });
 
-if (PERSONAGGIO.exp === PERSONAGGIO.expTot) {
+if (PERSONAGGIO.exp >= PERSONAGGIO.expTot) {
   PERSONAGGIO.passaggioDiLivello = true;
   PERSONAGGIO.livello += 1;
   PERSONAGGIO.exp = 0;
-  PERSONAGGIO.expTot = 150;
+  PERSONAGGIO.expTot += 50;
   EXP.textContent = `EXP: ${PERSONAGGIO.exp} / ${PERSONAGGIO.expTot}`;
 }
 
